@@ -7,6 +7,10 @@ public class Meal {
     private String name;
     private Instant createdAt;
 
+    public Meal(String name) {
+        this.name = name;
+    }
+
     public Meal() {
         this.createdAt = Instant.now();
     }
