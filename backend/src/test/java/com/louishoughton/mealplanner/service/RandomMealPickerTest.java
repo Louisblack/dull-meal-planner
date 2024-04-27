@@ -16,7 +16,7 @@ class RandomMealPickerTest {
 
     @ParameterizedTest
     @ValueSource(ints = {1, 2, 3, 4, 5, 6, 7})
-    void should_just_return_the_list_if_not_enough_meals(int numberOfMeals) {
+    void shouldJustReturnTheListIfNotEnoughMeals(int numberOfMeals) {
         List<Meal> meals = mealListGenerator(numberOfMeals);
         List<Meal> randomMeals = underTest.pickRandomMeals(new RandomMealPickerRequest(meals, 7));
 
@@ -24,7 +24,7 @@ class RandomMealPickerTest {
     }
 
     @Test
-    void should_return_the_requested_number() {
+    void shouldReturnTheRequestedNumber() {
         List<Meal> meals = mealListGenerator(10);
         List<Meal> randomMeals = underTest.pickRandomMeals(new RandomMealPickerRequest(meals, 7));
 

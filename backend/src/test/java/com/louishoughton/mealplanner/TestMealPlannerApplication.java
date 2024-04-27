@@ -1,13 +1,13 @@
 package com.louishoughton.mealplanner;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@TestConfiguration(proxyBeanMethods = false)
+@SpringBootApplication
 public class TestMealPlannerApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.from(MealPlannerApplication::main).with(TestMealPlannerApplication.class).run(args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(MealPlannerApplication.class, args);
+    }
 
 }

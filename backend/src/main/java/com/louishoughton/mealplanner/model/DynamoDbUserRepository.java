@@ -2,6 +2,8 @@ package com.louishoughton.mealplanner.model;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Repository;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.enhanced.dynamodb.EnhancedType;
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
@@ -14,6 +16,7 @@ import java.util.Optional;
 
 import static software.amazon.awssdk.enhanced.dynamodb.mapper.StaticAttributeTags.primaryPartitionKey;
 
+@Repository
 public class DynamoDbUserRepository implements UserRepository {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DynamoDbUserRepository.class);
@@ -21,7 +24,7 @@ public class DynamoDbUserRepository implements UserRepository {
     private final DynamoDbEnhancedClient dynamoDbClient;
     private final String tableName;
 
-    static final TableSchema<Meal> MEAL_TABLE_SCHEMA =
+    public static final TableSchema<Meal> MEAL_TABLE_SCHEMA =
             StaticTableSchema.builder(Meal.class)
                     .newItemSupplier(Meal::new)
                     .addAttribute(String.class, a -> a.name("name")
@@ -32,7 +35,7 @@ public class DynamoDbUserRepository implements UserRepository {
                                     .setter(Meal::setCreatedAt))
                             .build();
 
-    static final TableSchema<User> USER_TABLE_SCHEMA =
+    public static final TableSchema<User> USER_TABLE_SCHEMA =
             StaticTableSchema.builder(User.class)
                     .newItemSupplier(User::new)
                     .addAttribute(String.class, a -> a.name("guid")
@@ -52,12 +55,12 @@ public class DynamoDbUserRepository implements UserRepository {
                     .build();
 
     public DynamoDbUserRepository(DynamoDbEnhancedClient dynamoDbClient,
-                                  String tableName) {
+                                  @Value("${users.table.name}") String tableName) {
         this.dynamoDbClient = dynamoDbClient;
         this.tableName = tableName;
     }
 
-    public Optional<User> findByGuid(String userGuid) {
+    public Optional<User> get(String userGuid) {
         User item = dynamoDbClient.table(tableName, USER_TABLE_SCHEMA).getItem(GetItemEnhancedRequest.builder()
                 .key(r -> r.partitionValue(userGuid))
                 .build());

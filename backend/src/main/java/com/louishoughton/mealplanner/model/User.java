@@ -1,6 +1,7 @@
 package com.louishoughton.mealplanner.model;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
 public class User {
@@ -11,6 +12,7 @@ public class User {
 
     public User() {
         this.createdAt = Instant.now();
+        this.meals = new ArrayList<>();
     }
 
     public String getGuid() {

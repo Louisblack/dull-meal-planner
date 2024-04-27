@@ -53,21 +53,21 @@ class DynamoDbUserRepositoryTest {
     }
 
     @Test
-    void should_save_new_user_and_load() {
+    void shouldSaveNewUserAndLoad() {
         User user = new User();
         user.setGuid(UUID.randomUUID().toString());
         user.setName("Louis");
 
         underTest.save(user);
 
-        underTest.findByGuid(user.getGuid())
+        underTest.get(user.getGuid())
                 .ifPresentOrElse(
                         u -> assertThat(u.getGuid()).isEqualTo(user.getGuid()),
                         () -> fail("User not saved"));
     }
 
     @Test
-    void should_save_meals_list_for_user() {
+    void shouldSaveMealsListForUser() {
         User user = new User();
         user.setGuid(UUID.randomUUID().toString());
         user.setName("Louis");
@@ -78,14 +78,14 @@ class DynamoDbUserRepositoryTest {
 
         underTest.save(user);
 
-        underTest.findByGuid(user.getGuid())
+        underTest.get(user.getGuid())
                 .ifPresentOrElse(
                         u -> assertThat(u.getMeals()).containsExactly(meal),
                         () -> fail("Meals not saved"));
     }
 
     @Test
-    void should_update_meals_list_for_user() {
+    void shouldUpdateMealsListForUser() {
         User user = new User();
         user.setGuid(UUID.randomUUID().toString());
         user.setName("Louis");
@@ -96,7 +96,7 @@ class DynamoDbUserRepositoryTest {
 
         underTest.save(user);
 
-        underTest.findByGuid(user.getGuid())
+        underTest.get(user.getGuid())
                 .ifPresentOrElse(
                         u -> assertThat(u.getMeals()).containsExactly(meal),
                         () -> fail("Meals not saved"));
@@ -108,7 +108,7 @@ class DynamoDbUserRepositoryTest {
 
         underTest.update(user);
 
-        underTest.findByGuid(user.getGuid())
+        underTest.get(user.getGuid())
                 .ifPresentOrElse(
                         u -> assertThat(u.getMeals()).containsExactly(meal, anotherMeal),
                         () -> fail("Meals not updated"));

@@ -1,11 +1,13 @@
 package com.louishoughton.mealplanner.service;
 
 import com.louishoughton.mealplanner.model.Meal;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+@Service
 public class RandomMealPicker {
 
     public List<Meal> pickRandomMeals(RandomMealPickerRequest request) {
