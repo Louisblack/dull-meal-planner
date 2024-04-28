@@ -3,7 +3,11 @@ package com.louishoughton.mealplanner.controller;
 import com.louishoughton.mealplanner.model.User;
 import com.louishoughton.mealplanner.model.UserRepository;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class UserController {
@@ -15,12 +19,13 @@ public class UserController {
     }
 
     @GetMapping("/user")
-    public ResponseEntity<User> getUser(@RequestHeader("userGuid") String userGuid) {
-        return ResponseEntity.of(userRepository.get(userGuid));
+    public ResponseEntity<User> getUser(JwtAuthenticationToken principal) {
+        return ResponseEntity.of(userRepository.get(principal.getName()));
     }
 
     @PostMapping("/user")
-    public ResponseEntity<User> addUser(@RequestBody User user) {
+    public ResponseEntity<User> addUser(JwtAuthenticationToken principal, @RequestBody User user) {
+        user.setGuid(principal.getName());
         userRepository.save(user);
         return ResponseEntity.ok().build();
     }

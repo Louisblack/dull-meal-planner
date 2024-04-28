@@ -8,7 +8,7 @@ export function getConfig() {
   // If this resolves to `null`, the API page changes to show some helpful info about what to do
   // with the audience.
   const audience =
-    configJson.audience && configJson.audience !== "http://localhost:3000"
+    configJson.audience && configJson.audience !== "YOUR_API_IDENTIFIER"
       ? configJson.audience
       : null;
 
