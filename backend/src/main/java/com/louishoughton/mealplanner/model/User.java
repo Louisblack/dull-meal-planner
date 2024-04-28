@@ -1,5 +1,7 @@
 package com.louishoughton.mealplanner.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +33,7 @@ public class User {
         this.name = name;
     }
 
+    @JsonIgnore
     public List<Meal> getMeals() {
         return meals;
     }

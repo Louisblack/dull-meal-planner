@@ -43,4 +43,10 @@ public class MealService {
                         .mapToObj(i -> Map.entry(DayOfWeek.of(i + 1), randomMeals.get(i)))
                         .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
+
+    public List<Meal> getAllMeals(String userGuid) {
+        User user = userRepository.get(userGuid).orElseThrow(() -> new UserNotFoundException(userGuid));
+
+        return user.getMeals();
+    }
 }
