@@ -14,7 +14,7 @@ return (
 
     <p className="lead">
       <span>A website to take the decisions out of planning the weeks meals.</span>
-      <hr/>
+      < br />
       {!isAuthenticated ?
         <span>To get started, <a className="nav-item" onClick={() => loginWithRedirect()}>login or sign up</a>.</span> :
         <span/>}

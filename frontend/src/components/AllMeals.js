@@ -69,11 +69,11 @@ const AllMeals = ({user}) => {
   }
 
   function Meal({meal}) {
-    return <li key={meal.name}>{meal.name}</li>
+    return <div>{meal.name}</div>
   }
 
   function Meals() {
-    const meals = (state.meals).map(meal => <Meal meal={meal} />);
+    const meals = (state.meals).map(meal => <li key={meal.name}><Meal meal={meal} /></li>);
     return <ul>{meals}</ul>
   }
 
@@ -81,14 +81,13 @@ const AllMeals = ({user}) => {
     return (
     <Form onSubmit={event => event.preventDefault() || addMeal()}>
       <FormGroup>
-        <Label for="name">
-          Name of the Meal
-        </Label>
         <Input
           id="name"
           name="name"
           type="text"
           value={state.newMeal.name}
+          placeholder="Add a meal you like to have"
+          autocomplete="off"
           onChange={(e) => {
             setNewMealName(e.target.value);
           }}
@@ -104,9 +103,9 @@ const AllMeals = ({user}) => {
 
   return (
     <Fragment>
-      <h2>All Meals</h2>
-      <Meals />
+      <h3>Here are all the meals you like to have</h3>
       <AddMeal />
+      <Meals />
     </Fragment>
   );
 }
