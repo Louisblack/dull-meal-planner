@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.time.DayOfWeek;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -37,11 +38,13 @@ public class MealService {
 
     public Map<DayOfWeek, Meal> getTheWeeksMeals(String userGuid) {
         User user = userRepository.get(userGuid).orElseThrow(() -> new UserNotFoundException(userGuid));
-
+        if (user.getMeals().size() < 7) {
+            throw new NotEnoughMealsException(user.getMeals().size());
+        }
         List<Meal> randomMeals = randomMealPicker.pickRandomMeals(new RandomMealPickerRequest(user.getMeals(), DAYS_IN_A_WEEK));
-        return IntStream.range(0, DAYS_IN_A_WEEK)
+        return new TreeMap<>(IntStream.range(0, DAYS_IN_A_WEEK)
                         .mapToObj(i -> Map.entry(DayOfWeek.of(i + 1), randomMeals.get(i)))
-                        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+                        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)));
     }
 
     public List<Meal> getAllMeals(String userGuid) {

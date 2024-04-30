@@ -2,6 +2,7 @@ package com.louishoughton.mealplanner.controller;
 
 import com.louishoughton.mealplanner.model.Meal;
 import com.louishoughton.mealplanner.service.MealService;
+import com.louishoughton.mealplanner.service.NotEnoughMealsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
@@ -39,6 +40,11 @@ public class MealController {
 
     @GetMapping("/meals-for-week")
     public ResponseEntity<Map<DayOfWeek, Meal>> getMealsForTheWeek(JwtAuthenticationToken principal) {
-        return ResponseEntity.ok(mealService.getTheWeeksMeals(principal.getName()));
+        try {
+            return ResponseEntity.ok(mealService.getTheWeeksMeals(principal.getName()));
+        } catch (NotEnoughMealsException e) {
+
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
     }
 }
