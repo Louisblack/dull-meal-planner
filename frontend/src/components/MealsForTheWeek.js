@@ -1,7 +1,8 @@
 import {Fragment, useEffect, useState} from "react";
 import {useAuth0} from "@auth0/auth0-react";
 import {getConfig} from "../config";
-const { apiOrigin = "http://localhost:8080", audience } = getConfig();
+import {ListGroup, ListGroupItem} from "reactstrap";
+const { apiOrigin } = getConfig();
 
 const MealsForTheWeek = ({user}) => {
 
@@ -50,21 +51,25 @@ const MealsForTheWeek = ({user}) => {
 
   function MealList() {
     let entries = Object.entries(state.meals);
-    const meals = entries.map(meal => <li key={meal[0]}>{meal[0]} - {meal[1].name}</li>)
-    return <ul>{meals}</ul>
+    const meals = entries.map(meal => <ListGroupItem key={meal[0]}>{meal[0]} - {meal[1].name}</ListGroupItem>)
+    return <ListGroup>{meals}</ListGroup>
   }
 
   function Meals() {
     if (state.error) {
       return <p>{state.error}</p>;
     } else {
-      return <MealList />
+      return (
+        <Fragment>
+          <h2>Meals for the week</h2>
+          <MealList />
+        </Fragment>
+      );
     }
   }
 
   return (
     <Fragment>
-      <h2>Meals for the Week</h2>
       <Meals />
     </Fragment>
   );

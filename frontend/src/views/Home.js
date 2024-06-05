@@ -8,7 +8,7 @@ import {getConfig} from "../config";
 import MealsForTheWeek from "../components/MealsForTheWeek";
 import AllMeals from "../components/AllMeals";
 
-const { apiOrigin = "http://localhost:8080", audience } = getConfig();
+const { apiOrigin } = getConfig();
 
 const Home = () => {
   const {

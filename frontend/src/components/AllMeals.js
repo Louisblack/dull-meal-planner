@@ -1,8 +1,8 @@
 import {Fragment, useEffect, useState} from "react";
 import {useAuth0} from "@auth0/auth0-react";
 import {getConfig} from "../config";
-import {Button, Form, FormGroup, Input, Label} from "reactstrap";
-const { apiOrigin = "http://localhost:8080", audience } = getConfig();
+import {Button, Form, FormGroup, Input, Label, ListGroup, ListGroupItem} from "reactstrap";
+const { apiOrigin } = getConfig();
 
 
 
@@ -73,8 +73,8 @@ const AllMeals = ({user}) => {
   }
 
   function Meals() {
-    const meals = (state.meals).map(meal => <li key={meal.name}><Meal meal={meal} /></li>);
-    return <ul>{meals}</ul>
+    const meals = (state.meals).map(meal => <ListGroupItem key={meal.name}><Meal meal={meal} /></ListGroupItem>);
+    return <ListGroup>{meals}</ListGroup>
   }
 
   function AddMeal() {
@@ -95,7 +95,7 @@ const AllMeals = ({user}) => {
 
       </FormGroup>
       <Button onClick={(e) => e.preventDefault() || addMeal()}>
-        Submit
+        Add Meal!
       </Button>
     </Form>
     );

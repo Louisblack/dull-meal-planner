@@ -79,6 +79,7 @@
         </dependencies>
     </dependencyManagement>
 	<build>
+        <finalName>meal-planner</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.graalvm.buildtools</groupId>

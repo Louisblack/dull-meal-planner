@@ -5,6 +5,7 @@ import com.louishoughton.mealplanner.model.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.utility.DockerImageName;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
@@ -23,6 +24,7 @@ public class TestConfiguration {
     }
 
     @Bean
+    @Primary
     public DynamoDbEnhancedClient dynamoDbEnhancedClient(GenericContainer dynamoDBLocal, @Value("${users.table.name}") String tableName) throws URISyntaxException {
         String dynamoUri = "http://" + dynamoDBLocal.getContainerIpAddress() + ":" + dynamoDBLocal.getMappedPort(8000);
 

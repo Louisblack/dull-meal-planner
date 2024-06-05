@@ -83,6 +83,7 @@ class MealServiceTest {
         for (int i = 0; i < MealService.DAYS_IN_A_WEEK; i++) {
             meals.add(new Meal());
         }
+        user.setMeals(meals);
         when(userRepository.get(userGuid)).thenReturn(Optional.of(user));
         when(randomMealPicker.pickRandomMeals(any(RandomMealPickerRequest.class))).thenReturn(meals);
 

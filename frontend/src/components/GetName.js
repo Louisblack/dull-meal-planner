@@ -1,5 +1,8 @@
 import {Button, Form, FormGroup, Input, Label} from "reactstrap";
 import {useAuth0} from "@auth0/auth0-react";
+import {getConfig} from "../config";
+
+const { apiOrigin } = getConfig();
 
 const GetName = ({updateUserCallback}) => {
   const {
@@ -15,8 +18,8 @@ const GetName = ({updateUserCallback}) => {
   async function updateName() {
     try {
       const token = await getAccessTokenSilently();
-      const response = await fetch("http://localhost:8080/user", {
-        method: "POST", // or 'PUT'
+      const response = await fetch(`${apiOrigin}/user`, {
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
