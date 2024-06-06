@@ -26,6 +26,7 @@ public class MealService {
 
     public void addMeal(String userGuid, Meal meal) {
         User user = userRepository.get(userGuid).orElseThrow(() -> new UserNotFoundException(userGuid));
+        meal.setUser(user);
         user.getMeals().add(meal);
         userRepository.save(user);
     }

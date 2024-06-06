@@ -1,11 +1,28 @@
 package com.louishoughton.mealplanner.model;
 
+import jakarta.persistence.*;
+
 import java.time.Instant;
 import java.util.Objects;
 
+@Entity(name = "meal")
 public class Meal {
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String guid;
     private String name;
     private Instant createdAt;
+    @ManyToOne
+    @JoinColumn(name = "user_guid")
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public Meal(String name) {
         this.name = name;
@@ -13,6 +30,14 @@ public class Meal {
 
     public Meal() {
         this.createdAt = Instant.now();
+    }
+
+    public String getGuid() {
+        return guid;
+    }
+
+    public void setGuid(String guid) {
+        this.guid = guid;
     }
 
     public String getName() {

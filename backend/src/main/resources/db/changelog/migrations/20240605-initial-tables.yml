@@ -1,0 +1,51 @@
+databaseChangeLog:
+  - changeSet:
+      id: "202406052029"
+      author: louis
+      changes:
+        - createTable:
+            tableName: user
+            schemaName: meal_planner
+            columns:
+              - column:
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_user
+                  name: guid
+                  type: varchar(100)
+              - column:
+                  name: name
+                  type: varchar(150)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: timestamp
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: meal
+            schemaName: meal_planner
+            columns:
+              - column:
+                  constraints:
+                    foreignKeyName: fk_user
+                    references: user(guid)
+                  name: user_guid
+                  type: varchar(100)
+              - column:
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_meal
+                  name: guid
+                  type: varchar(100)
+              - column:
+                  name: name
+                  type: varchar(150)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: timestamp
+                  constraints:
+                    nullable: false
